@@ -1,10 +1,12 @@
 package ua.kruart.traineeship.web.user;
 
+import org.springframework.stereotype.Controller;
 import ua.kruart.traineeship.model.User;
 
 import java.util.List;
 
 /**Created by kruart on 10.07.2016.*/
+@Controller
 public class AdminRestController extends AbstractUserController {
 
     public List<User> getAll() {

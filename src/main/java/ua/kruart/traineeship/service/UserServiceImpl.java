@@ -1,5 +1,7 @@
 package ua.kruart.traineeship.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.kruart.traineeship.model.User;
 import ua.kruart.traineeship.repository.UserRepository;
 import ua.kruart.traineeship.util.ExceptionUtil;
@@ -8,8 +10,10 @@ import ua.kruart.traineeship.util.NotFoundException;
 import java.util.List;
 
 /**Created by kruart on 10.07.2016.*/
+@Service
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     private UserRepository repository;
 
     public void setRepository(UserRepository repository) {

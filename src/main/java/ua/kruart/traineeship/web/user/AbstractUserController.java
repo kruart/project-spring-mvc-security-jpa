@@ -1,5 +1,6 @@
 package ua.kruart.traineeship.web.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.kruart.traineeship.LoggerWrapper;
 import ua.kruart.traineeship.model.User;
 import ua.kruart.traineeship.service.UserService;
@@ -10,6 +11,7 @@ import java.util.List;
 public abstract class AbstractUserController {
     protected final LoggerWrapper LOG = LoggerWrapper.get(getClass());
 
+    @Autowired
     private UserService service;
 
     public List<User> getAll() {

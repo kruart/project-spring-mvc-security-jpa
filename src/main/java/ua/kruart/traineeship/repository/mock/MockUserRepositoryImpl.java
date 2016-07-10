@@ -1,5 +1,6 @@
 package ua.kruart.traineeship.repository.mock;
 
+import org.springframework.stereotype.Repository;
 import ua.kruart.traineeship.LoggerWrapper;
 import ua.kruart.traineeship.model.User;
 import ua.kruart.traineeship.repository.UserRepository;
@@ -8,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**Created by kruart on 10.07.2016.*/
+@Repository
 public class MockUserRepositoryImpl implements UserRepository {
     private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserRepositoryImpl.class);
 
