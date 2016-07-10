@@ -5,4 +5,7 @@
 
     <bean class="ua.kruart.traineeship.repository.mock.MockUserRepositoryImpl" id="mockUserRepository"/>
 
+    <bean class="ua.kruart.traineeship.service.UserServiceImpl">
+        <property name="repository" ref="mockUserRepository"/>
+    </bean>
 </beans>

@@ -2,7 +2,9 @@ package ua.kruart.traineeship;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ua.kruart.traineeship.repository.UserRepository;
+import ua.kruart.traineeship.model.Role;
+import ua.kruart.traineeship.model.User;
+import ua.kruart.traineeship.service.UserService;
 
 import java.util.Arrays;
 
@@ -11,8 +13,8 @@ public class SpringMain {
     public static void main(String[] args) {
         ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml");
         System.out.println(Arrays.toString(appCtx.getBeanDefinitionNames()));
-        UserRepository userRepository = (UserRepository) appCtx.getBean("mockUserRepository");
-        userRepository = appCtx.getBean(UserRepository.class);
+        UserService userService = appCtx.getBean(UserService.class);
+        System.out.println(userService.save(new User(1, "userName", "email", "password", Role.ROLE_ADMIN)));
         appCtx.close();
     }
 }
