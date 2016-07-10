@@ -1,6 +1,7 @@
-package ua.kruart.traineeship.repository;
+package ua.kruart.traineeship.repository.mock;
 
 import ua.kruart.traineeship.model.UserMeal;
+import ua.kruart.traineeship.repository.UserMealRepository;
 import ua.kruart.traineeship.util.UserMealsUtil;
 
 import java.util.Collection;

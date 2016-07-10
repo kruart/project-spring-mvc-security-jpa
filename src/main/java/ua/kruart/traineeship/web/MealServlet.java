@@ -2,7 +2,7 @@ package ua.kruart.traineeship.web;
 
 import ua.kruart.traineeship.LoggerWrapper;
 import ua.kruart.traineeship.model.UserMeal;
-import ua.kruart.traineeship.repository.InMemoryUserMealRepositoryImpl;
+import ua.kruart.traineeship.repository.mock.InMemoryUserMealRepositoryImpl;
 import ua.kruart.traineeship.repository.UserMealRepository;
 import ua.kruart.traineeship.util.UserMealsUtil;
 
