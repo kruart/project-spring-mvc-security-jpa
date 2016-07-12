@@ -1,9 +1,10 @@
 package ua.kruart.traineeship.web;
 
+import ua.kruart.traineeship.LoggedUser;
 import ua.kruart.traineeship.LoggerWrapper;
 import ua.kruart.traineeship.model.UserMeal;
-import ua.kruart.traineeship.repository.mock.InMemoryUserMealRepositoryImpl;
 import ua.kruart.traineeship.repository.UserMealRepository;
+import ua.kruart.traineeship.repository.mock.InMemoryUserMealRepositoryImpl;
 import ua.kruart.traineeship.util.UserMealsUtil;
 
 import javax.servlet.ServletConfig;
@@ -35,7 +36,7 @@ public class MealServlet extends HttpServlet {
                 request.getParameter("description"),
                 Integer.valueOf(request.getParameter("calories")));
         LOG.info(userMeal.isNew() ? "Create {}" : "Update {}", userMeal);
-        repository.save(userMeal);
+        repository.save(userMeal, LoggedUser.id());
         response.sendRedirect("meals");
     }
 
@@ -45,17 +46,17 @@ public class MealServlet extends HttpServlet {
         if (action == null) {
             LOG.info("getAll");
             request.setAttribute("mealList",
-                    UserMealsUtil.getWithExceeded(repository.getAll(), UserMealsUtil.DEFAULT_CALORIES_PER_DAY));
+                    UserMealsUtil.getWithExceeded(repository.getAll(LoggedUser.id()), UserMealsUtil.DEFAULT_CALORIES_PER_DAY));
             request.getRequestDispatcher("/mealList.jsp").forward(request, response);
         } else if (action.equals("delete")) {
             int id = getId(request);
             LOG.info("Delete {}", id);
-            repository.delete(id);
+            repository.delete(id, LoggedUser.id());
             response.sendRedirect("meals");
         } else {
             final UserMeal meal = action.equals("create") ?
                     new UserMeal(LocalDateTime.now(), "", 1000) :
-                    repository.get(getId(request));
+                    repository.get(getId(request), LoggedUser.id());
             request.setAttribute("meal", meal);
             request.getRequestDispatcher("mealEdit.jsp").forward(request, response);
         }
@@ -66,3 +67,4 @@ public class MealServlet extends HttpServlet {
         return Integer.valueOf(paramId);
     }
 }
+
