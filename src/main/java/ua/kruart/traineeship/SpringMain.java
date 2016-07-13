@@ -4,9 +4,15 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ua.kruart.traineeship.model.Role;
 import ua.kruart.traineeship.model.User;
+import ua.kruart.traineeship.to.UserMealWithExceed;
+import ua.kruart.traineeship.web.meal.UserMealRestController;
 import ua.kruart.traineeship.web.user.AdminRestController;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.Arrays;
+import java.util.List;
 
 /**Created by kruart on 10.07.2016.*/
 public class SpringMain {
@@ -16,6 +22,14 @@ public class SpringMain {
             System.out.println(Arrays.toString(appCtx.getBeanDefinitionNames()));
             AdminRestController adminUserController = appCtx.getBean(AdminRestController.class);
             System.out.println(adminUserController.create(new User(1, "userName", "email", "password", Role.ROLE_ADMIN)));
+            System.out.println();
+
+            UserMealRestController mealController = appCtx.getBean(UserMealRestController.class);
+            List<UserMealWithExceed> filteredMealsWithExceeded =
+                    mealController.getBetween(
+                            LocalDate.of(2015, Month.MAY, 30), LocalTime.of(7, 0),
+                            LocalDate.of(2015, Month.MAY, 31), LocalTime.of(11, 0));
+            filteredMealsWithExceeded.forEach(System.out::println);
         }
     }
 }

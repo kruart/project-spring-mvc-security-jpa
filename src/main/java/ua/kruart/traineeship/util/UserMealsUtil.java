@@ -1,7 +1,7 @@
 package ua.kruart.traineeship.util;
 
 import ua.kruart.traineeship.model.UserMeal;
-import ua.kruart.traineeship.model.UserMealWithExceed;
+import ua.kruart.traineeship.to.UserMealWithExceed;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

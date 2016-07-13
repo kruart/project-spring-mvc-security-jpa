@@ -1,4 +1,4 @@
-package ua.kruart.traineeship.model;
+package ua.kruart.traineeship.to;
 
 import java.time.LocalDateTime;
 

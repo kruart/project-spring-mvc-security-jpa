@@ -1,5 +1,6 @@
 package ua.kruart.traineeship.repository.mock;
 
+import org.springframework.stereotype.Repository;
 import ua.kruart.traineeship.model.UserMeal;
 import ua.kruart.traineeship.repository.UserMealRepository;
 import ua.kruart.traineeship.util.TimeUtil;
@@ -16,6 +17,7 @@ import static ua.kruart.traineeship.repository.mock.InMemoryUserRepositoryImpl.A
 import static ua.kruart.traineeship.repository.mock.InMemoryUserRepositoryImpl.USER_ID;
 
 /**Created by kruart on 09.07.2016.*/
+@Repository
 public class InMemoryUserMealRepositoryImpl implements UserMealRepository {
 
     public static final Comparator<UserMeal> USER_MEAL_COMPARATOR = (um1, um2) -> um2.getDateTime().compareTo(um1.getDateTime());
