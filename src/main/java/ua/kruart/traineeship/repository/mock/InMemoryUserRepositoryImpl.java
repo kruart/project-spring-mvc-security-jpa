@@ -1,10 +1,13 @@
 package ua.kruart.traineeship.repository.mock;
 
 import org.springframework.stereotype.Repository;
+import ua.kruart.traineeship.LoggerWrapper;
 import ua.kruart.traineeship.model.Role;
 import ua.kruart.traineeship.model.User;
 import ua.kruart.traineeship.repository.UserRepository;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +19,8 @@ import java.util.stream.Collectors;
 /**Created by kruart on 10.07.2016.*/
 @Repository
 public class InMemoryUserRepositoryImpl implements UserRepository {
+    private static final LoggerWrapper LOG = LoggerWrapper.get(InMemoryUserRepositoryImpl.class);
+
     private Map<Integer, User> repository = new ConcurrentHashMap<>();
     private AtomicInteger counter = new AtomicInteger(0);
 
@@ -27,6 +32,16 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
     {
         save(new User(USER_ID, "User", "user@yandex.ru", "password", Role.ROLE_USER));
         save(new User(ADMIN_ID, "Admin", "admin@gmail.com", "admin", Role.ROLE_ADMIN));
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        LOG.info("+++ PostConstruct");
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        LOG.info("+++ PreDestroy");
     }
 
     @Override
