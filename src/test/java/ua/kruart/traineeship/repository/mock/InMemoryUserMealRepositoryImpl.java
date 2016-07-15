@@ -13,8 +13,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import static ua.kruart.traineeship.repository.mock.InMemoryUserRepositoryImpl.ADMIN_ID;
-import static ua.kruart.traineeship.repository.mock.InMemoryUserRepositoryImpl.USER_ID;
+import static ua.kruart.traineeship.UserTestData.ADMIN_ID;
+import static ua.kruart.traineeship.UserTestData.USER_ID;
 
 /**Created by kruart on 09.07.2016.*/
 @Repository
