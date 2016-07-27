@@ -6,9 +6,7 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
 
-/**
- * Created by kruart on 10.07.2016.
- */
+/**Created by kruart on 10.07.2016.*/
 public class User extends NamedEntity {
 
     protected String email;
@@ -24,6 +22,10 @@ public class User extends NamedEntity {
     protected int caloriesPerDay = UserMealsUtil.DEFAULT_CALORIES_PER_DAY;
 
     public User() {
+    }
+
+    public User(User u) {
+        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.getCaloriesPerDay(), u.isEnabled(), u.getRoles());
     }
 
     public User(Integer id, String name, String email, String password, Role role, Role... roles) {

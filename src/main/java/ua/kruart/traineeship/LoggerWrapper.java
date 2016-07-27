@@ -4,10 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.kruart.traineeship.util.NotFoundException;
 
-/**
- * User: gkislin
- * Date: 22.01.14
- */
+/**Created by kruart on 10.07.2016.*/
 public class LoggerWrapper {
 
     private Logger logger;

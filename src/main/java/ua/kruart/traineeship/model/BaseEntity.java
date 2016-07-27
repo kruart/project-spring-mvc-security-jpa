@@ -6,6 +6,8 @@ import ua.kruart.traineeship.LoggerWrapper;
 public class BaseEntity {
     protected static final LoggerWrapper LOG = LoggerWrapper.get(BaseEntity.class);
 
+    public static final int START_SEQ = 100000;
+
     protected Integer id;
 
     public BaseEntity() {
