@@ -1,10 +1,11 @@
 package ua.kruart.traineeship;
 
+import ua.kruart.traineeship.model.BaseEntity;
 import ua.kruart.traineeship.util.UserMealsUtil;
 
 /**Created by kruart on 10.07.2016.*/
 public class LoggedUser {
-    public static int id = 1;
+    public static int id = BaseEntity.START_SEQ;
 
     public static int id() {
         return id;
