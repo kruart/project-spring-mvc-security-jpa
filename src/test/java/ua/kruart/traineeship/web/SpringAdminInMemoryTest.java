@@ -19,7 +19,7 @@ import static ua.kruart.traineeship.UserTestData.ADMIN;
 import static ua.kruart.traineeship.UserTestData.USER;
 
 /**Created by kruart on 18.07.2016.*/
-@ContextConfiguration("classpath:spring/spring-app.xml")
+@ContextConfiguration({"classpath:spring/spring-app.xml","classpath:spring/mock.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SpringAdminInMemoryTest {
 

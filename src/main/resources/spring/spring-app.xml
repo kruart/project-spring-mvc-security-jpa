@@ -14,8 +14,6 @@
 
     <context:annotation-config/>
 
-    <context:component-scan base-package="ua.kruart.**.repository.jdbc"/>
-
     <context:component-scan base-package="ua.kruart.**.service"/>
 
     <context:component-scan base-package="ua.kruart.**.web"/>
