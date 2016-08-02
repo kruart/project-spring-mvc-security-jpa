@@ -1,5 +1,7 @@
 package ua.kruart.traineeship.model;
 
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 /** Created by kruart on 05.07.2016.*/
@@ -10,6 +12,9 @@ public class UserMeal extends BaseEntity {
     protected String description;
 
     protected int calories;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
     public UserMeal(LocalDateTime dateTime, String description, int calories) {
         this(null, dateTime, description, calories);
