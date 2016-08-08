@@ -7,12 +7,14 @@ import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.kruart.traineeship.LoggerWrapper;
 import ua.kruart.traineeship.MealTestData;
+import ua.kruart.traineeship.Profiles;
 import ua.kruart.traineeship.model.UserMeal;
 import ua.kruart.traineeship.util.NotFoundException;
 
@@ -33,6 +35,7 @@ import static ua.kruart.traineeship.UserTestData.USER_ID;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@ActiveProfiles(Profiles.POSTGRES)
 public class UserMealServiceTest {
     private static final LoggerWrapper LOG = LoggerWrapper.get(UserMealServiceTest.class);
 
