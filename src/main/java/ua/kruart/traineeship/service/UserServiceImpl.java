@@ -1,6 +1,8 @@
 package ua.kruart.traineeship.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ua.kruart.traineeship.model.User;
 import ua.kruart.traineeship.repository.UserRepository;
@@ -8,6 +10,7 @@ import ua.kruart.traineeship.util.ExceptionUtil;
 import ua.kruart.traineeship.util.NotFoundException;
 
 import java.util.List;
+import java.util.Objects;
 
 /**Created by kruart on 10.07.2016.*/
 @Service
@@ -16,14 +19,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository repository;
 
-    public void setRepository(UserRepository repository) {
-        this.repository = repository;
-    }
-
+    @CacheEvict(value = "users", allEntries = true)
     public User save(User user) {
         return repository.save(user);
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     public void delete(int id) {
         ExceptionUtil.check(repository.delete(id), id);
     }
@@ -33,14 +34,22 @@ public class UserServiceImpl implements UserService {
     }
 
     public User getByEmail(String email) throws NotFoundException {
+        Objects.requireNonNull(email, "Email must not be empty");
         return ExceptionUtil.check(repository.getByEmail(email), "email=" + email);
     }
 
+    @Cacheable("users")
     public List<User> getAll() {
         return repository.getAll();
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     public void update(User user) {
         repository.save(user);
+    }
+
+    @CacheEvict(value = "users", allEntries = true)
+    @Override
+    public void evictCache() {
     }
 }
