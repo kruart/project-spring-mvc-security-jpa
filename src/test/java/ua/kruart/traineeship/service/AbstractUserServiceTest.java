@@ -3,15 +3,8 @@ package ua.kruart.traineeship.service;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ua.kruart.traineeship.Profiles;
 import ua.kruart.traineeship.model.Role;
 import ua.kruart.traineeship.model.User;
 import ua.kruart.traineeship.util.NotFoundException;
@@ -24,14 +17,7 @@ import static ua.kruart.traineeship.UserTestData.*;
 
 /**Created by kruart on 27.07.2016.*/
 
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
-})
-@RunWith(SpringJUnit4ClassRunner.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ActiveProfiles(Profiles.POSTGRES)
-public class UserServiceTest {
+abstract public class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Autowired
     protected UserService service;
