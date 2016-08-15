@@ -14,8 +14,8 @@
     <!--log sql parameter -->
     <logger name="org.hibernate.type" level="trace"/>
 
-    <logger name="org.springframework.jdbc" level="debug"/>
-    <logger name="ru.javawebinar.topjava" level="debug"/>
+    <!--<logger name="org.springframework.jdbc" level="debug"/>-->
+    <logger name="ua.kruart.traineeship" level="debug"/>
 
     <root level="WARN">
         <appender-ref ref="console"/>
