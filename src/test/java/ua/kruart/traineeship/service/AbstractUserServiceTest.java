@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import ua.kruart.traineeship.model.Role;
 import ua.kruart.traineeship.model.User;
+import ua.kruart.traineeship.repository.JpaUtil;
 import ua.kruart.traineeship.util.NotFoundException;
 
 import java.util.Arrays;
@@ -22,9 +23,13 @@ abstract public class AbstractUserServiceTest extends AbstractServiceTest {
     @Autowired
     protected UserService service;
 
+    @Autowired
+    protected JpaUtil jpaUtil;
+
     @Before
     public void setUp() throws Exception {
         service.evictCache();
+        jpaUtil.clear2ndLevelHibernateCache();
     }
 
     @Test
