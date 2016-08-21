@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
 import ua.kruart.traineeship.MealTestData;
 import ua.kruart.traineeship.model.User;
-import ua.kruart.traineeship.service.AbstractUserServiceTest;
+import ua.kruart.traineeship.service.AbstractJpaUserServiceTest;
 
 import static ua.kruart.traineeship.Profiles.DATAJPA;
 import static ua.kruart.traineeship.UserTestData.*;
@@ -12,7 +12,7 @@ import static ua.kruart.traineeship.UserTestData.*;
 /** Created by kruart on 13.08.2016.*/
 
 @ActiveProfiles(DATAJPA)
-public class DataJpaUserServiceTest extends AbstractUserServiceTest {
+public class DataJpaUserServiceTest extends AbstractJpaUserServiceTest {
     @Test
     public void testGetWithUser() throws Exception {
         User user = service.getWithMeals(USER_ID);
