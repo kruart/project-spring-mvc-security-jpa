@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ua.kruart.traineeship.LoggedUser;
 import ua.kruart.traineeship.service.UserMealService;
 import ua.kruart.traineeship.service.UserService;
-import ua.kruart.traineeship.util.UserMealsUtil;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,13 +32,6 @@ public class RootController {
         return "userList";
     }
 
-    @RequestMapping(value = "/meals", method = RequestMethod.GET)
-    public String mealList(Model model) {
-        model.addAttribute("mealList",
-                UserMealsUtil.getWithExceeded(mealService.getAll(LoggedUser.id()), LoggedUser.getCaloriesPerDay()));
-        return "mealList";
-    }
-
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public String setUser(HttpServletRequest request) {
         int userId = Integer.valueOf(request.getParameter("userId"));
@@ -47,4 +39,3 @@ public class RootController {
         return "redirect:meals";
     }
 }
-
