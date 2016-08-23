@@ -1,5 +1,6 @@
 package ua.kruart.traineeship;
 
+import ua.kruart.traineeship.TestUtil.ToStringModelMatcher;
 import ua.kruart.traineeship.matcher.ModelMatcher;
 import ua.kruart.traineeship.model.UserMeal;
 
@@ -14,7 +15,7 @@ import static ua.kruart.traineeship.model.BaseEntity.START_SEQ;
 /**Created by kruart on 27.07.2016.*/
 public class MealTestData {
 
-    public static final ModelMatcher<UserMeal, String> MATCHER = new ModelMatcher<>(UserMeal::toString);
+    public static final ModelMatcher<UserMeal, String> MATCHER = new ToStringModelMatcher<>(UserMeal.class);
 
     public static final int MEAL1_ID = START_SEQ + 2;
     public static final int ADMIN_MEAL_ID = START_SEQ + 8;
