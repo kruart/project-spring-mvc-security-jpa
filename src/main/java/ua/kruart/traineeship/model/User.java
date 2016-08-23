@@ -1,12 +1,12 @@
 package ua.kruart.traineeship.model;
 
-import ua.kruart.traineeship.util.UserMealsUtil;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import ua.kruart.traineeship.util.UserMealsUtil;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -59,6 +59,7 @@ public class User extends NamedEntity {
 
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "user")
     @OrderBy("dateTime DESC")
+    @JsonIgnore
     protected List<UserMeal> meals;
 
     public User() {
