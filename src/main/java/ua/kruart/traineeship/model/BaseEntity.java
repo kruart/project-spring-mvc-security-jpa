@@ -1,17 +1,13 @@
 package ua.kruart.traineeship.model;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import ua.kruart.traineeship.LoggerWrapper;
 
 import javax.persistence.*;
 
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
-
 /**Created by kruart on 10.07.2016.*/
 @MappedSuperclass
 @Access(AccessType.FIELD)
-@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
+//@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
 public class BaseEntity {
     protected static final LoggerWrapper LOG = LoggerWrapper.get(BaseEntity.class);
 
