@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ua.kruart.traineeship.model.UserMeal;
 import ua.kruart.traineeship.repository.UserMealRepository;
 
@@ -18,6 +19,7 @@ import java.util.List;
 
 /**Created by kruart on 27.07.2016.*/
 @Repository
+@Transactional(readOnly = true)
 public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
     private static final RowMapper<UserMeal> ROW_MAPPER =
@@ -41,6 +43,7 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
     }
 
     @Override
+    @Transactional
     public UserMeal save(UserMeal userMeal, int userId) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", userMeal.getId())
@@ -63,6 +66,7 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
     }
 
     @Override
+    @Transactional
     public boolean delete(int id, int userId) {
         return jdbcTemplate.update("DELETE FROM meals WHERE id=? AND user_id=?", id, userId) != 0;
     }
