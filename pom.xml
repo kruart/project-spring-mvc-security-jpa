@@ -18,9 +18,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <!-- Spring -->
         <spring-data-jpa.version>1.9.0.RELEASE</spring-data-jpa.version>
         <spring.version>4.2.3.RELEASE</spring.version>
+        <spring-security.version>4.0.3.RELEASE</spring-security.version>
 
+        <!-- Jdbc -->
         <postgres.version>9.4-1206-jdbc42</postgres.version>
         <hsqldb.version>2.3.2</hsqldb.version>
 
@@ -151,6 +154,18 @@
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!--security-->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring-security.version}</version>
         </dependency>
 
         <!-- Webjars (static dependencies distributed as JAR files) -->
