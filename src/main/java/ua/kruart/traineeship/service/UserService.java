@@ -6,6 +6,7 @@ import ua.kruart.traineeship.util.NotFoundException;
 import java.util.List;
 
 /**Created by kruart on 10.07.2016.*/
+
 public interface UserService {
 
     User save(User user);
@@ -21,6 +22,8 @@ public interface UserService {
     void update(User user);
 
     void evictCache();
+
+    void enable(int id, boolean enable);
 
     User getWithMeals(int id);
 }

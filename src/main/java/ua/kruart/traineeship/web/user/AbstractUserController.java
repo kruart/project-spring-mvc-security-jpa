@@ -8,6 +8,7 @@ import ua.kruart.traineeship.service.UserService;
 import java.util.List;
 
 /**Created by kruart on 10.07.2016.*/
+
 public abstract class AbstractUserController {
     protected final LoggerWrapper LOG = LoggerWrapper.get(getClass());
 
@@ -44,5 +45,10 @@ public abstract class AbstractUserController {
     public User getByMail(String email) {
         LOG.info("getByEmail " + email);
         return service.getByEmail(email);
+    }
+
+    public void enable(int id, boolean enabled) {
+        LOG.info((enabled ? "enable " : "disable ") + id);
+        service.enable(id, enabled);
     }
 }

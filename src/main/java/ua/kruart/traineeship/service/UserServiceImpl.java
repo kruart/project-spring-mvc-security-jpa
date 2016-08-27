@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.kruart.traineeship.model.User;
 import ua.kruart.traineeship.repository.UserRepository;
 import ua.kruart.traineeship.util.ExceptionUtil;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**Created by kruart on 10.07.2016.*/
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -53,8 +55,18 @@ public class UserServiceImpl implements UserService {
     public void evictCache() {
     }
 
+    @CacheEvict(value = "users", allEntries = true)
+    @Override
+    @Transactional
+    public void enable(int id, boolean enabled) {
+        User user = get(id);
+        user.setEnabled(enabled);
+        repository.save(user);
+    }
+
     @Override
     public User getWithMeals(int id) {
         return repository.getWithMeals(id);
     }
 }
+
