@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ua.kruart.traineeship.LoggerWrapper;
 import ua.kruart.traineeship.model.User;
 import ua.kruart.traineeship.service.UserService;
+import ua.kruart.traineeship.to.UserTo;
 
 import java.util.List;
 
@@ -40,6 +41,11 @@ public abstract class AbstractUserController {
         user.setId(id);
         LOG.info("update " + user);
         service.update(user);
+    }
+
+    public void update(UserTo userTo) {
+        LOG.info("update " + userTo);
+        service.update(userTo);
     }
 
     public User getByMail(String email) {

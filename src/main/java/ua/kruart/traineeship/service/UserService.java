@@ -1,6 +1,7 @@
 package ua.kruart.traineeship.service;
 
 import ua.kruart.traineeship.model.User;
+import ua.kruart.traineeship.to.UserTo;
 import ua.kruart.traineeship.util.NotFoundException;
 
 import java.util.List;
@@ -17,6 +18,8 @@ public interface UserService {
 
     User getByEmail(String email) throws NotFoundException;
 
+    void update(UserTo user);
+
     List<User> getAll();
 
     void update(User user);
@@ -27,4 +30,3 @@ public interface UserService {
 
     User getWithMeals(int id);
 }
-
