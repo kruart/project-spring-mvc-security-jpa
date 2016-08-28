@@ -1,15 +1,23 @@
 package ua.kruart.traineeship.to;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Size;
+
 /**Created by Arthur on 28.08.2016.*/
 
 public class UserTo {
-
     protected int id;
 
+    @NotEmpty
     protected String name;
 
+    @Email
+    @NotEmpty
     protected String email;
 
+    @Size(min = 5, max = 64, message = " must between 5 and 64 characters")
     protected String password;
 
     public UserTo() {
