@@ -3,7 +3,7 @@ package ua.kruart.traineeship;
 import ua.kruart.traineeship.matcher.ModelMatcher;
 import ua.kruart.traineeship.model.Role;
 import ua.kruart.traineeship.model.User;
-import ua.kruart.traineeship.util.UserMealsUtil;
+import ua.kruart.traineeship.util.UserUtil;
 
 import java.util.EnumSet;
 import java.util.Objects;
@@ -28,7 +28,7 @@ public class UserTestData {
         }
 
         public TestUser(String name, String email, String password, Role role, Role... roles) {
-            this(null, name, email, password, UserMealsUtil.DEFAULT_CALORIES_PER_DAY, true, EnumSet.of(role, roles));
+            this(null, name, email, password, UserUtil.DEFAULT_CALORIES_PER_DAY, true, EnumSet.of(role, roles));
         }
 
         public TestUser(Integer id, String name, String email, String password, int caloriesPerDay, boolean enabled, Set<Role> roles) {
