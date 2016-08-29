@@ -1,7 +1,10 @@
 package ua.kruart.traineeship;
 
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import ua.kruart.traineeship.matcher.ModelMatcher;
+import ua.kruart.traineeship.model.User;
 
 import java.io.UnsupportedEncodingException;
 
@@ -18,6 +21,10 @@ public class TestUtil {
         return action.andReturn().getResponse().getContentAsString();
     }
 
+    public static RequestPostProcessor userHttpBasic(User user) {
+        return SecurityMockMvcRequestPostProcessors.httpBasic(user.getEmail(), user.getPassword());
+    }
+
     /**
      * Compare entities using toString
      */
@@ -27,3 +34,4 @@ public class TestUtil {
         }
     }
 }
+
