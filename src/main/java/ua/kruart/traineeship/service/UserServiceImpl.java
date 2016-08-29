@@ -3,8 +3,11 @@ package ua.kruart.traineeship.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.kruart.traineeship.LoggedUser;
 import ua.kruart.traineeship.model.User;
 import ua.kruart.traineeship.repository.UserRepository;
 import ua.kruart.traineeship.to.UserTo;
@@ -17,8 +20,8 @@ import java.util.Objects;
 
 /**Created by kruart on 10.07.2016.*/
 
-@Service
-public class UserServiceImpl implements UserService {
+@Service("userService")
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserRepository repository;
@@ -78,6 +81,15 @@ public class UserServiceImpl implements UserService {
         User user = get(id);
         user.setEnabled(enabled);
         repository.save(user);
+    }
+
+    @Override
+    public LoggedUser loadUserByUsername(String email) throws UsernameNotFoundException {
+        User u = repository.getByEmail(email);
+        if (u == null) {
+            throw new UsernameNotFoundException("User " + email + " is not found");
+        }
+        return new LoggedUser(u);
     }
 
     @Override
