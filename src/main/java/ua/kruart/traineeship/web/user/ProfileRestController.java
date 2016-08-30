@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ua.kruart.traineeship.LoggedUser;
 import ua.kruart.traineeship.model.User;
+import ua.kruart.traineeship.to.UserTo;
 
 /**Created by kruart on 10.07.2016.*/
 
@@ -25,12 +26,13 @@ public class ProfileRestController extends AbstractUserController {
         super.delete(LoggedUser.id());
     }
 
-    public void update(@RequestBody User user) {
-        super.update(user, LoggedUser.id());
+    public void update(@RequestBody UserTo userTo) {
+        userTo.setId(LoggedUser.id());
+        super.update(userTo);
     }
 
     @RequestMapping(value = "/text", method = RequestMethod.GET)
     public String testUTF() {
-        return "Кириллица";
+        return "Русский текст";
     }
 }

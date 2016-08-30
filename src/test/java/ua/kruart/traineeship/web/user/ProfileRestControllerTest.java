@@ -3,8 +3,9 @@ package ua.kruart.traineeship.web.user;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import ua.kruart.traineeship.TestUtil;
-import ua.kruart.traineeship.model.Role;
 import ua.kruart.traineeship.model.User;
+import ua.kruart.traineeship.to.UserTo;
+import ua.kruart.traineeship.util.UserUtil;
 import ua.kruart.traineeship.web.AbstractControllerTest;
 import ua.kruart.traineeship.web.json.JsonUtil;
 
@@ -47,13 +48,14 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        User updated = new User(USER_ID, "newName", "newEmail", "newPassword", Role.ROLE_USER);
+        UserTo updatedTo = new UserTo(0, "newName", "newEmail", "newPassword", 1500);
+
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
                 .with(TestUtil.userHttpBasic(USER))
-                .content(JsonUtil.writeValue(updated)))
+                .content(JsonUtil.writeValue(updatedTo)))
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        MATCHER.assertEquals(updated, new User(userService.getByEmail("newEmail")));
+        MATCHER.assertEquals(UserUtil.updateFromTo(new User(USER), updatedTo), userService.getByEmail("newemail"));
     }
 }
