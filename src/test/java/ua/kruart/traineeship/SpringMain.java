@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**Created by kruart on 10.07.2016.*/
+
 public class SpringMain {
     public static void main(String[] args) {
         // java 7 Automatic resource management
@@ -24,7 +25,7 @@ public class SpringMain {
 
             System.out.println(Arrays.toString(appCtx.getBeanDefinitionNames()));
             AdminRestController adminUserController = appCtx.getBean(AdminRestController.class);
-            System.out.println(adminUserController.create(new User(1, "userName", "email", "password", Role.ROLE_ADMIN)));
+            System.out.println(adminUserController.create(new User(1, "userName", "email", "password", 2005, Role.ROLE_ADMIN)));
             System.out.println();
 
             UserMealRestController mealController = appCtx.getBean(UserMealRestController.class);
@@ -36,3 +37,4 @@ public class SpringMain {
         }
     }
 }
+

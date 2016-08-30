@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import ua.kruart.traineeship.LoggedUser;
 import ua.kruart.traineeship.to.UserTo;
+import ua.kruart.traineeship.util.UserUtil;
 import ua.kruart.traineeship.web.user.AbstractUserController;
 
 import javax.validation.Valid;
@@ -61,6 +62,25 @@ public class RootController extends AbstractUserController {
             LoggedUser.get().update(userTo);
             status.setComplete();
             return "redirect:meals";
+        }
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(ModelMap model) {
+        model.addAttribute("userTo", new UserTo());
+        model.addAttribute("register", true);
+        return "profile";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String saveRegister(@Valid UserTo userTo, BindingResult result, SessionStatus status, ModelMap model) {
+        if (result.hasErrors()) {
+            model.addAttribute("register", true);
+            return "profile";
+        } else {
+            super.create(UserUtil.createFromTo(userTo));
+            status.setComplete();
+            return "redirect:login?message=app.registered";
         }
     }
 }
