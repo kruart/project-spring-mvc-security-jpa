@@ -3,6 +3,7 @@ package ua.kruart.traineeship;
 import ua.kruart.traineeship.matcher.ModelMatcher;
 import ua.kruart.traineeship.model.Role;
 import ua.kruart.traineeship.model.User;
+import ua.kruart.traineeship.util.PasswordUtil;
 import ua.kruart.traineeship.util.UserUtil;
 
 import java.util.EnumSet;
@@ -14,6 +15,8 @@ import static ua.kruart.traineeship.model.BaseEntity.START_SEQ;
 /**Created by kruart on 27.07.2016.*/
 
 public class UserTestData {
+    private static final LoggerWrapper LOG = LoggerWrapper.get(UserTestData.class);
+
     public static final int USER_ID = START_SEQ;
     public static final int ADMIN_ID = START_SEQ + 1;
 
@@ -37,7 +40,7 @@ public class UserTestData {
         }
 
         public User asUser() {
-            return new User(this);
+            return UserUtil.prepareToSave(new User(this));
         }
 
         @Override
@@ -62,7 +65,7 @@ public class UserTestData {
             }
 
             TestUser that = (TestUser) o;
-            return Objects.equals(this.password, that.password)
+            return comparePassword(this.password, that.password)
                     && Objects.equals(this.id, that.id)
                     && Objects.equals(this.name, that.name)
                     && Objects.equals(this.email, that.email)
@@ -70,5 +73,15 @@ public class UserTestData {
                     && Objects.equals(this.enabled, that.enabled)
                     && Objects.equals(this.roles, that.roles);
         }
+    }
+
+    private static boolean comparePassword(String rawPassword, String password) {
+        if (PasswordUtil.isEncoded(rawPassword)) {
+            LOG.warn("Expected password couldn't be compared with actual");
+        } else if (!PasswordUtil.isMatch(rawPassword, password)) {
+            LOG.error("Password " + password + " doesn't match encoded " + password);
+            return false;
+        }
+        return true;
     }
 }

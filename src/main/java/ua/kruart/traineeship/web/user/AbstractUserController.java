@@ -5,6 +5,7 @@ import ua.kruart.traineeship.LoggerWrapper;
 import ua.kruart.traineeship.model.User;
 import ua.kruart.traineeship.service.UserService;
 import ua.kruart.traineeship.to.UserTo;
+import ua.kruart.traineeship.util.UserUtil;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public abstract class AbstractUserController {
     public User create(User user) {
         user.setId(null);
         LOG.info("create " + user);
-        return service.save(user);
+        return service.save(UserUtil.prepareToSave(user));
     }
 
     public void delete(int id) {
@@ -40,7 +41,7 @@ public abstract class AbstractUserController {
     public void update(User user, int id) {
         user.setId(id);
         LOG.info("update " + user);
-        service.update(user);
+        service.update(UserUtil.prepareToSave(user));
     }
 
     public void update(UserTo userTo) {
@@ -58,3 +59,4 @@ public abstract class AbstractUserController {
         service.enable(id, enabled);
     }
 }
+
