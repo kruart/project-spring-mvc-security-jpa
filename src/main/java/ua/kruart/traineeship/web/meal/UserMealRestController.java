@@ -10,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.kruart.traineeship.model.UserMeal;
 import ua.kruart.traineeship.to.UserMealWithExceed;
 import ua.kruart.traineeship.util.TimeUtil;
+import ua.kruart.traineeship.web.ExceptionInfoHandler;
 
 import java.net.URI;
 import java.time.LocalDate;
@@ -21,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = UserMealRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class UserMealRestController extends AbstractUserMealController {
+public class UserMealRestController extends AbstractUserMealController implements ExceptionInfoHandler {
     public static final String REST_URL = "/rest/profile/meals";
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

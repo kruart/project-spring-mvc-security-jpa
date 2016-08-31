@@ -3,8 +3,10 @@ package ua.kruart.traineeship;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.kruart.traineeship.util.NotFoundException;
+import ua.kruart.traineeship.util.exception.ErrorInfo;
 
 /**Created by kruart on 10.07.2016.*/
+
 public class LoggerWrapper {
 
     private Logger logger;
@@ -71,5 +73,10 @@ public class LoggerWrapper {
     public NotFoundException getNotFoundException(String reason) {
         logger.error(reason);
         return new NotFoundException(reason);
+    }
+
+    public ErrorInfo getErrorInfo(CharSequence requestUrl, Exception e) {
+        logger.error("Exception at request " + requestUrl);
+        return new ErrorInfo(requestUrl, e);
     }
 }

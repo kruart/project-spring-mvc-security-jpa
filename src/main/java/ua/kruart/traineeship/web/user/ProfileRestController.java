@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.kruart.traineeship.LoggedUser;
 import ua.kruart.traineeship.model.User;
 import ua.kruart.traineeship.to.UserTo;
+import ua.kruart.traineeship.web.ExceptionInfoHandler;
 
 /**Created by kruart on 10.07.2016.*/
 
 @RestController
 @RequestMapping(ProfileRestController.REST_URL)
-public class ProfileRestController extends AbstractUserController {
+public class ProfileRestController extends AbstractUserController implements ExceptionInfoHandler {
     public static final String REST_URL = "/rest/profile";
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
