@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import ua.kruart.traineeship.model.UserMeal;
 import ua.kruart.traineeship.to.UserMealWithExceed;
 import ua.kruart.traineeship.util.TimeUtil;
-import ua.kruart.traineeship.web.ExceptionInfoHandler;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -19,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/ajax/profile/meals")
-public class UserMealAjaxController extends AbstractUserMealController implements ExceptionInfoHandler {
+public class UserMealAjaxController extends AbstractUserMealController {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UserMealWithExceed> getAll() {

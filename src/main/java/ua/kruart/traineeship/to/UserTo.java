@@ -12,6 +12,8 @@ import java.io.Serializable;
 /**Created by Arthur on 28.08.2016.*/
 
 public class UserTo implements Serializable {
+    static final long serialVersionUID = 1L;
+
     protected int id;
 
     @NotEmpty
