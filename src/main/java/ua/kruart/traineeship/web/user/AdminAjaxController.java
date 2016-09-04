@@ -1,13 +1,14 @@
 package ua.kruart.traineeship.web.user;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import ua.kruart.traineeship.model.User;
 import ua.kruart.traineeship.to.UserTo;
 import ua.kruart.traineeship.util.UserUtil;
+import ua.kruart.traineeship.util.exception.ValidationException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -34,19 +35,20 @@ public class AdminAjaxController extends AbstractUserController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<String> createOrUpdate(@Valid UserTo userTo, BindingResult result) {
+    public void createOrUpdate(@Valid UserTo userTo, BindingResult result, SessionStatus status) {
         if (result.hasErrors()) {
-            // TODO change to exception handler
-            StringBuilder sb = new StringBuilder();
-            result.getFieldErrors().forEach(fe -> sb.append(fe.getField()).append(" ").append(fe.getDefaultMessage()).append("<br>"));
-            return new ResponseEntity<>(sb.toString(), HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new ValidationException(result);
         }
-        if (userTo.getId() == 0) {
-            super.create(UserUtil.createFromTo(userTo));
-        } else {
-            super.update(userTo);
+        status.setComplete();
+        try {
+            if (userTo.getId() == 0) {
+                super.create(UserUtil.createFromTo(userTo));
+            } else {
+                super.update(userTo);
+            }
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("user with this email already present in application");
         }
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
@@ -54,3 +56,4 @@ public class AdminAjaxController extends AbstractUserController {
         super.enable(id, enabled);
     }
 }
+

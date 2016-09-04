@@ -1,5 +1,6 @@
 package ua.kruart.traineeship.web;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,7 +33,7 @@ public class RootController extends AbstractUserController {
         return "userList";
     }
 
-    @RequestMapping(value = "/meals",method = RequestMethod.GET)
+    @RequestMapping(value = "/meals", method = RequestMethod.GET)
     public String mealList() {
         return "mealList";
     }
@@ -54,15 +55,18 @@ public class RootController extends AbstractUserController {
 
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
     public String updateProfile(@Valid UserTo userTo, BindingResult result, SessionStatus status) {
-        if (result.hasErrors()) {
-            return "profile";
-        } else {
-            userTo.setId(LoggedUser.id());
-            super.update(userTo);
-            LoggedUser.get().update(userTo);
-            status.setComplete();
-            return "redirect:meals";
+        if (!result.hasErrors()) {
+            try {
+                userTo.setId(LoggedUser.id());
+                super.update(userTo);
+                LoggedUser.get().update(userTo);
+                status.setComplete();
+                return "redirect:meals";
+            } catch (DataIntegrityViolationException ex) {
+                result.rejectValue("email", "error.user", "user with this email already present in application");
+            }
         }
+        return "profile";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -74,13 +78,16 @@ public class RootController extends AbstractUserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String saveRegister(@Valid UserTo userTo, BindingResult result, SessionStatus status, ModelMap model) {
-        if (result.hasErrors()) {
-            model.addAttribute("register", true);
-            return "profile";
-        } else {
-            super.create(UserUtil.createFromTo(userTo));
-            status.setComplete();
-            return "redirect:login?message=app.registered";
+        if (!result.hasErrors()) {
+            try {
+                super.create(UserUtil.createFromTo(userTo));
+                status.setComplete();
+                return "redirect:login?message=app.registered";
+            } catch (DataIntegrityViolationException ex) {
+                result.rejectValue("email", "error.user", "user with this email already present in application");
+            }
         }
+        model.addAttribute("register", true);
+        return "profile";
     }
 }

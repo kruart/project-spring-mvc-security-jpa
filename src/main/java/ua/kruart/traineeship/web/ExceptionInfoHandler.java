@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ua.kruart.traineeship.LoggerWrapper;
 import ua.kruart.traineeship.util.NotFoundException;
 import ua.kruart.traineeship.util.exception.ErrorInfo;
+import ua.kruart.traineeship.util.exception.ValidationException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,6 +31,14 @@ public class ExceptionInfoHandler {
     @ResponseBody
     @Order(Ordered.HIGHEST_PRECEDENCE + 1)
     public ErrorInfo conflict(HttpServletRequest req, DataIntegrityViolationException e) {
+        return LOG.getErrorInfo(req.getRequestURL(), e);
+    }
+
+    @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)  // 422
+    @ExceptionHandler(ValidationException.class)
+    @ResponseBody
+    @Order(Ordered.HIGHEST_PRECEDENCE + 2)
+    ErrorInfo validationError(HttpServletRequest req, ValidationException e) {
         return LOG.getErrorInfo(req.getRequestURL(), e);
     }
 
